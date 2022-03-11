@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "log-timestamp": "^0.3.0",
+    "puppeteer": "^13.4.0",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.9.0"
+  }
+}
