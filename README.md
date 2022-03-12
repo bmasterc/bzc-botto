@@ -7,6 +7,7 @@ You can run with Pycharm on Python 3.10 (or VSCode)
 -  Get a running dev server
 -  Get Opensea scraper running on schedule
 -  Install instructions, update dependencies
+-  Add Usage here, how to run node scraper, test env
   
 ## Next:
 - BZC Tip Bot
