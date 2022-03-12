@@ -2,6 +2,7 @@
 You can run with Pycharm on Python 3.10 (or VSCode)
 
 ## ToDo
+-  Get a test running (without Discord)
 -  Finish Floor Command
 -  Get a running dev server
 -  Get Opensea scraper running on schedule
