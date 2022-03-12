@@ -1,9 +1,38 @@
+import math
+
 from bson import json_util
 from collections import defaultdict
 from core.utils import WebSession, writeFile, readFile, writeJsonFile, readJsonFile
+import os
 
 rpc_url = 'https://polygon-rpc.com'
 abi_url = 'https://api.polygonscan.com/api?module=contract&action=getabi&address='
+
+collections = {"skeleton-kings": {
+                'quantity': 1000,
+                'contract': '0xfc92a46f38b5a347ab5ea2e764390ac8bb4057f6',
+                'metadata_type': 'generative'
+                },"billionairezombiesclub": {
+                'quantity': 10000,
+                'contract': '0x4bca2c2ece9402b5d4dd031b49d48166c40b7957',
+                'metadata_type': 'generative'
+                },"bzc-metaverse": {
+                'quantity': 10000,
+                'contract': '0x99ca9a688eece77dad66e0378b67bc8a0f2d7eef',
+                'metadata_type': 'item'
+                },"bzc-skeleton-keys": {
+                'quantity': 1000,
+                'contract': '0xee5d848c6d5bf44681610154f733da2ea3e37cf6',
+                'metadata_type': 'single'
+                },"bzc-metacrystals": {
+                'quantity': 10000,
+                'contract': '0x578945b61c97f6c4e3371dc215ec866f170ff9cc',
+                'metadata_type': 'single'
+                },"bzc-skeleton-keys-3d": {
+                'quantity': 1000,
+                'contract': '0xa6b0eef8c87fb1544689b05d22e3fd55e4fe369b',
+                'metadata_type': 'single'
+                }}
 
 class BzcCollection():
     def __init__(self):
@@ -24,13 +53,24 @@ class BzcCollection():
     def rank_and_offers(self):
         self.get_metadata()
         self.rank_collection()
-        self.offers()
+        self.load_offers()
 
-    def get_floor_price(self, collection_name, type):
-        return ""
+    def get_floor_price(self, collection_name, type=None):
+        min_price = math.inf
+        min_offer = None
+
+        for offer in self.offers[collection_name]:
+            if min_price > offer['floorPrice']['amount']:
+                min_price = offer['floorPrice']['amount']
+                min_offer = offer
+
+        if min_offer:
+            return f"{offer['name']} {offer['offerUrl']}"
+
+        return "None"
 
     # Pull offers and store, sorted by price
-    def offers(self):
+    def load_offers(self):
         for collection_name, coll_data in collections.items():
             # Files created by nodejs scrape of opensea
             filename = f"data/{collection_name}_offers.json";

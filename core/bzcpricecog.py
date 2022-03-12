@@ -6,41 +6,7 @@ from core.bzc_collection import BzcCollection
 from discord.ext import commands
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-# ToDo
-# -BZC Tip Bot
-# -Floor Prices
-# -Ranking Per Wallet
-# -Trait price alerts
-
-rpc_url = 'https://polygon-rpc.com'
-abi_url = 'https://api.polygonscan.com/api?module=contract&action=getabi&address='
-
 scheduler = AsyncIOScheduler()
-collections = {"skeleton-kings": {
-                'quantity': 1000,
-                'contract': '0xfc92a46f38b5a347ab5ea2e764390ac8bb4057f6',
-                'metadata_type': 'generative'
-                },"billionairezombiesclub": {
-                'quantity': 10000,
-                'contract': '0x4bca2c2ece9402b5d4dd031b49d48166c40b7957',
-                'metadata_type': 'generative'
-                },"bzc-metaverse": {
-                'quantity': 10000,
-                'contract': '0x99ca9a688eece77dad66e0378b67bc8a0f2d7eef',
-                'metadata_type': 'item'
-                },"bzc-skeleton-keys": {
-                'quantity': 1000,
-                'contract': '0xee5d848c6d5bf44681610154f733da2ea3e37cf6',
-                'metadata_type': 'single'
-                },"bzc-metacrystals": {
-                'quantity': 10000,
-                'contract': '0x578945b61c97f6c4e3371dc215ec866f170ff9cc',
-                'metadata_type': 'single'
-                },"bzc-skeleton-keys-3d": {
-                'quantity': 1000,
-                'contract': '0xa6b0eef8c87fb1544689b05d22e3fd55e4fe369b',
-                'metadata_type': 'single'
-                }}
 
 class PriceCog(discord.ext.commands.Cog, name='BZC Price Cog'):
     def __init__(self, bot):

@@ -1,3 +1,5 @@
+import sys
+
 from core.main import DiscordBot, setup_min_log
 from core.errorhandlercog import ErrorHandlerCog
 from core.bzcpricecog import PriceCog
@@ -12,16 +14,21 @@ if __name__ == '__main__':
     # intents = discord.Intents.default()
     # intents.members = True
 
-    if "dev":
+    if len(sys.argv) > 1 and sys.argv[1] == "test":
         bzc_coll = BzcCollection()
-        bzc_coll.get_floor_price('skeleton-kings')
+        bzc_coll.rank_and_offers()
+        floor = bzc_coll.get_floor_price('skeleton-kings')
+        print(f"Floor: {floor}")
+    else:
+        bot = DiscordBot(
+            command_prefix='!',
+            # intents=intents
+        )
 
-    bot = DiscordBot(
-        command_prefix='!', 
-        # intents=intents
-    )
+        bot.add_cog(PriceCog(bot))
+        bot.add_cog(ErrorHandlerCog(bot))
 
-    bot.add_cog(PriceCog(bot))
-    bot.add_cog(ErrorHandlerCog(bot))
-
-    bot.run(app_config['discord_key'])
+        if 'discord_key' in app_config and app_config['discord_key']:
+            bot.run(app_config['discord_key'])
+        else:
+            raise Exception("Missing Discord Bot Key!")
