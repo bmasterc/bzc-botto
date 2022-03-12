@@ -2,6 +2,7 @@ from core.main import DiscordBot, setup_min_log
 from core.errorhandlercog import ErrorHandlerCog
 from core.bzcpricecog import PriceCog
 from core.utils import readJsonFile
+from core.bzc_collection import BzcCollection
 
 if __name__ == '__main__':
     setup_min_log()
@@ -10,6 +11,10 @@ if __name__ == '__main__':
 
     # intents = discord.Intents.default()
     # intents.members = True
+
+    if "dev":
+        bzc_coll = BzcCollection()
+        bzc_coll.get_floor_price('skeleton-kings')
 
     bot = DiscordBot(
         command_prefix='!', 

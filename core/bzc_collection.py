@@ -1,4 +1,3 @@
-from web3 import Web3
 from bson import json_util
 from collections import defaultdict
 from core.utils import WebSession, writeFile, readFile, writeJsonFile, readJsonFile
@@ -17,6 +16,7 @@ class BzcCollection():
 
     @property
     def web3(self):
+        from web3 import Web3
         if not self._web3:
             self._web3 = Web3(Web3.HTTPProvider(rpc_url))
         return self._web3
